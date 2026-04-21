@@ -11,7 +11,6 @@ See the [Backing & Hacking blog post](https://www.kickstarter.com/backing-and-ha
 
 [![Gem Version](https://badge.fury.io/rb/rack-attack.svg)](https://badge.fury.io/rb/rack-attack)
 [![build](https://github.com/rack/rack-attack/actions/workflows/build.yml/badge.svg)](https://github.com/rack/rack-attack/actions/workflows/build.yml)
-[![Code Climate](https://codeclimate.com/github/kickstarter/rack-attack.svg)](https://codeclimate.com/github/kickstarter/rack-attack)
 [![Join the chat at https://gitter.im/rack-attack/rack-attack](https://badges.gitter.im/rack-attack/rack-attack.svg)](https://gitter.im/rack-attack/rack-attack)
 
 ## Table of contents
@@ -56,7 +55,7 @@ Add this line to your application's Gemfile:
 ```ruby
 # In your Gemfile
 
-gem 'rack-attack'
+gem "rack-attack", "~> 6.8"
 ```
 
 And then execute:
@@ -386,9 +385,9 @@ Rack::Attack.throttled_responder = lambda do |request|
   now = match_data[:epoch_time]
 
   headers = {
-    'RateLimit-Limit' => match_data[:limit].to_s,
-    'RateLimit-Remaining' => '0',
-    'RateLimit-Reset' => (now + (match_data[:period] - now % match_data[:period])).to_s
+    'ratelimit-limit' => match_data[:limit].to_s,
+    'ratelimit-remaining' => '0',
+    'ratelimit-reset' => (now + (match_data[:period] - now % match_data[:period])).to_s
   }
 
   [ 429, headers, ["Throttled\n"]]
